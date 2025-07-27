@@ -1,28 +1,24 @@
 public class Main {
+    static CreditAccount credit = new CreditAccount(-400_000);
+    static SimpleAccount debit = new SimpleAccount();
+
     public static void main(String[] args) {
-        // создаем счет с балансом 5000
-        SimpleAccount simpleAccount = new SimpleAccount(5000);
-        System.out.println("Баланс счета: " + simpleAccount.getBalance());
+       showInfo();
+       debit.add(200_000);
+       credit.add(200_000);
+       showInfo();
+       debit.pay(300_000);
+       credit.pay(300_000);
+       showInfo();
+       debit.transfer(credit, 150_000);
+       showInfo();
 
-        //оплатим 500 со счета
-        simpleAccount.pay(500);
-        System.out.println("Баланс счета после оплаты: " + simpleAccount.getBalance());
-
-        //создаем кредитный счет с балансом 0 руб. и кредитным лимитом 40_000
-        CreditAccount creditAccount = new CreditAccount(0, 40_000);
-        System.out.println("Баланс кредитного счета: " + creditAccount.getBalance());
-
-        //платим с кредитного счета
-        creditAccount.pay(30_000);
-        System.out.println("Баланс кредитного счета после оплаты: " + creditAccount.getBalance());
-
-        //переведем деньги с обычного счета на кредитный
-        long transferAmount = 4000;
-        System.out.println("Сумма перевода: " + transferAmount);
-        simpleAccount.transfer(creditAccount, transferAmount);
-        System.out.println("Баланс обычного счета после перевода: " + simpleAccount.getBalance());
-        System.out.println("Баланс кредитного счета после пополнения с обычного счета: " + creditAccount.getBalance());
 
     }
 
+    static void showInfo() {
+        System.out.println("На счету дебита: " + debit.getBalance());
+        System.out.println("На счету кредита: " + credit.getBalance());
+
+    }
 }
